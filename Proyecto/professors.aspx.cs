@@ -13,5 +13,10 @@ namespace Proyecto
         {
 
         }
+
+        protected void btLogout_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx");
+        }
     }
 }

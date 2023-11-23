@@ -6,10 +6,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Techville University</title>
-    <link rel="stylesheet" href="styles.css" />
+    <!--<link rel="stylesheet" href="styles.css" />-->
 </head>
 <body>
     <form id="form1" runat="server">
+
         <header>
             <div class="logo">
                 <img src="img/techvilleLogo.png" alt="Techville University Logo" />
@@ -25,7 +26,7 @@
                     <li><a href="#">Contact</a></li>
                 </ul>
             </nav>
-            <asp:Button runat="server" Text="Login" CssClass="login-button" OnClick="loginButton_Click" ID="loginButton" />
+            <asp:Button runat="server" Text="Login" CssClass="button" OnClick="loginButton_Click" ID="loginButton"/>
         </header>
 
         <div class="hero-section">
@@ -87,7 +88,6 @@
         </aside>
 
         <footer>
-            <p>Get in touch: Visit us at [University Address], call us at [Phone Number], or email us at [Email Address].</p>
             <div class="footer-links">
                 <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
             </div>

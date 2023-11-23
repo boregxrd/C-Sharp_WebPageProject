@@ -4,7 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Student's Space</title>
+    <!--<link rel="stylesheet" href="styles.css" />-->
 </head>
 <body style="height: 555px">
     <form id="form1" runat="server">
@@ -25,7 +26,7 @@
                     <li><a href="#">Contact</a></li>
                 </ul>
             </nav>
-            <asp:Button runat="server" Text="Login" CssClass="login-button" OnClick="loginButton_Click" ID="loginButton" />
+            <asp:Button runat="server" Text="Logout" CssClass="button" OnClick="btLogout_Click" ID="btLogout" />
         </header>
 
 
@@ -36,14 +37,14 @@
             <p>
                 <asp:Label ID="Label2" runat="server" Text="Personal Information"></asp:Label>
             </p>
-            <asp:Image ID="Image1" runat="server" Height="133px" Width="155px" />
+            <asp:Image src="img/editUser.png" alt="Edit user icon" runat="server" Height="133px" Width="155px" />
             <asp:Label ID="name" runat="server" Text="Name"></asp:Label>
             <asp:Label ID="surname" runat="server" Text="Surname"></asp:Label>
             <asp:Label ID="dateOfBirth" runat="server" Text="DOB"></asp:Label>
             <asp:Label ID="nationality" runat="server" Text="Nationality"></asp:Label>
             <asp:Label ID="id" runat="server" Text="ID"></asp:Label>
             <p>
-                <asp:Button ID="btEdit" runat="server" Text="Edit" />
+                <asp:Button ID="btEdit" runat="server" Text="Edit" OnClick="btEdit_Click" />
             </p>
             <asp:Label ID="Label10" runat="server" Text="Course Information"></asp:Label>
             <p>
@@ -58,7 +59,6 @@
 
 
         <footer>
-            <p>Get in touch: Visit us at [University Address], call us at [Phone Number], or email us at [Email Address].</p>
             <div class="footer-links">
                 <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
             </div>
