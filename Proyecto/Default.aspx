@@ -104,7 +104,7 @@
                 </aside>
             </div>
 
-            <footer>
+            <footer id="footerDefault">
                 <div class="footer-links">
                     <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
                 </div>

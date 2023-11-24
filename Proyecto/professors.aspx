@@ -48,16 +48,19 @@
                     </div>
                     <div class="proffesorLbContainers">
                         <label>Your Students:</label>
-                        <asp:ListBox ID="lbStudents" runat="server" style="margin-top: 0px" Width="263px" Height="158px">
+                        <asp:ListBox ID="lbStudents" runat="server" style="margin-top: 0px" Width="263px"
+                            Height="158px">
                         </asp:ListBox>
                     </div>
                 </div>
-                
+
                 <div>
-                    <asp:Label ID="hiddenSelectedlb" runat="server" Text="The selected subject information is:"
-                        Style="display: none;"></asp:Label>
+                    <asp:Label ID="hiddenSelectedlb" runat="server" Text="The selected subject information is:"></asp:Label><br>
+                    <asp:Label ID="creditsLabel" runat="server" Text="Credits: "></asp:Label>
                     <asp:Label ID="credits" runat="server"></asp:Label><br>
-                    <asp:Label ID="semester" runat="server"></asp:Label><br>
+                    <asp:Label ID="semesterLabel" runat="server" Text="Semester: "></asp:Label>
+                    <asp:Label ID="semester" runat="server" ></asp:Label><br>
+                    <asp:Label ID="careerLabel" runat="server" Text="Degree: "></asp:Label>
                     <asp:Label ID="degree" runat="server"></asp:Label><br>
                 </div>
             </section>

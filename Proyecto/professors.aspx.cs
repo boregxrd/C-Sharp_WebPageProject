@@ -69,11 +69,9 @@ namespace Proyecto
                     lbStudents.Items.Add(new ListItem(student, student));
                 }
 
-                hiddenSelectedlb.Style["display"] = "block";
-
-                credits.Text = "Credits: " + subject.Credits.ToString();
-                semester.Text = "Semester: " +  subject.Semester.ToString();
-                degree.Text = "Degree: " +  subject.Degree;
+                credits.Text = subject.Credits.ToString();
+                semester.Text = subject.Semester.ToString();
+                degree.Text = subject.Degree;
             }
             else
             {

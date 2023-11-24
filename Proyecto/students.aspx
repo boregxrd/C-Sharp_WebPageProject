@@ -38,9 +38,9 @@
             <section class="student">
                 <asp:Label CssClass="PageTitle" runat="server" Text="Student's Space"></asp:Label>
 
+                <asp:Label ID="personalInformationLabel" runat="server" Text="Edit Personal Information">
+                </asp:Label>
                 <div id="styleContainer">
-                    <asp:Label ID="personalInformationLabel" runat="server" Text="Edit Personal Information">
-                    </asp:Label>
                     <div id="userInfoContainer">
                         <div id="imgAndLabel">
                             <asp:Image src="img/editUser.png" alt="Edit user icon" runat="server" Height="133px"
@@ -80,11 +80,11 @@
                     <asp:Label ID="editMessage" runat="server"></asp:Label>
                 </div>
 
+                <p>
+                    <asp:Label ID="courseInfoLabel" runat="server" Text="Course Information"></asp:Label>
+                </p>
                 <div id="courseInformationContainer">
                     <div>
-                        <p>
-                            <asp:Label ID="courseInfoLabel" runat="server" Text="Course Information"></asp:Label>
-                        </p>
                         <p>
                             <asp:Label ID="careerLabel" runat="server" Text="Degree: "></asp:Label>
                             <asp:Label ID="career" runat="server" Text="Career"></asp:Label>
@@ -96,7 +96,7 @@
                             <asp:Label ID="credits" runat="server" Text="Credits"></asp:Label>
                         </p>
                     </div>
-                    <asp:ListBox ID="lbSubjectsProfessors" runat="server" style="margin-left: 0px" Width="422px">
+                    <asp:ListBox ID="lbSubjectsProfessors" runat="server" style="margin-left: 0px">
                     </asp:ListBox>
                 </div>
             </section>

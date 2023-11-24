@@ -39,7 +39,7 @@
                 </p>
                 <asp:Label ID="labelPassword" runat="server" Text="Password"></asp:Label>
                 <p>
-                    <asp:TextBox ID="tbPassword" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbPassword" runat="server" TextMode="Password"></asp:TextBox>
                 </p>
                 <asp:Label ID="errorMessage" runat="server"></asp:Label>
                 <asp:Button class="button" ID="btOk" runat="server" Text="Login" OnClick="btOk_Click" />

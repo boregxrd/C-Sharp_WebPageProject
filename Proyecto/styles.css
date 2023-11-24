@@ -83,6 +83,36 @@ nav ul li a {
     cursor: pointer;
 }
 
+@media screen and (max-width: 1560px) {
+    header nav {
+        width: 70%;
+    }
+
+    .logo {
+        width: 15%;
+    }
+
+    .header-button-container {
+        width: 15%;
+    }
+
+}
+
+@media screen and (max-width: 1000px) {
+    header nav {
+        display: none;
+    }
+
+    .logo {
+        width: 15%;
+    }
+
+    .header-button-container {
+        width: 15%;
+    }
+}
+
+
 /*---- HERO SECTION ----*/
 
 .hero-section {
@@ -98,16 +128,16 @@ nav ul li a {
     position: absolute;
     background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%), url('tu-imagen.jpg');
     background-blend-mode: screen;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     z-index: -1;
     filter: brightness(0.7);
     overflow: hidden;
 }
 
 .background-image img {
-    width: 130%;
-    height: 100%;
+    width: 130vw;
+    height: 100vh;
     object-fit: cover;
 }
 
@@ -136,6 +166,20 @@ nav ul li a {
     margin-top: 1em;
     margin-left: 1em;
     line-height: 1.43em;
+}
+
+@media screen and (max-width: 1000px) {
+    .welcome-message {
+        padding-right: 5%;
+    }
+
+    .hero-section {
+        width: 100vw;
+    }
+
+    .background-image {
+        width: 100vw;
+    }
 }
 
 /*---- CONTENT ----*/
@@ -212,6 +256,36 @@ nav ul li a {
     flex: 0 0 48%;
 }
 
+
+@media screen and (max-width: 1000px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .main-content {
+        width: 80vw;
+    }
+
+    #sidebar-left {
+        width: 100vw;
+        padding: 20px 50px;
+        padding-right: 200px;
+        color: var(--primary-color);
+        border: 0;
+        border-bottom: 4px solid var(--secondary-color);
+        border-right: 0;
+    }
+
+    #sidebar-right {
+        text-align: start;
+        width: 100vw;
+        padding: 20px 50px;
+        color: var(--primary-color);
+        border-top: 4px solid var(--secondary-color);
+        border-left: 0;
+    }
+}
+
 /******* END HOME PAGE ******\
 \****************************/
 
@@ -275,7 +349,7 @@ nav ul li a {
 \************************/
 
 .student {
-    height: 100vh;
+    height: fit-content;
     padding-top: 80px;
     display: flex;
     flex-direction: column;
@@ -283,12 +357,11 @@ nav ul li a {
 }
 
 #styleContainer {
-    border: 2px solid var(--secondary-color);
-    border-radius: 15px;
-    background-color: #e4e4e4;
+    border-bottom: 5px solid var(--secondary-color);
     width: 55vw;
     padding: 30px;
     padding-top: 10px;
+    margin-bottom: 50px;
 }
 
 #userInfoContainer {
@@ -298,11 +371,9 @@ nav ul li a {
 }
 
 #personalInformationLabel {
-    position: relative;
     font-size: 20px;
     font-weight: bold;
     color: #333333;
-    top: 10px;
 }
 
 #imgAndLabel img {
@@ -364,13 +435,9 @@ nav ul li a {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 50px;
     width: 55vw;
     padding: 30px;
     padding-top: 10px;
-    background-color: #e4e4e4;
-    border-radius: 15px;
-    border: 2px solid var(--secondary-color);
 }
 
 #courseInfoLabel {
@@ -397,9 +464,29 @@ nav ul li a {
 
 #lbSubjectsProfessors {
     border-radius: 5px;
-    background-color: #fff;
-    margin-top: 50px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 2px solid lightgray;
+    background-color: #e4e4e4;
+    color: #333333;
+    margin-top: 20px;
+    width: 420px;
     height: 100px;
+}
+
+@media screen and (max-width: 600px) {
+    #userInfoContainer {
+        flex-direction: column;
+        padding-left: 25%;
+    }
+
+    #courseInformationContainer {
+        flex-direction: column;
+    }
+
+    #lbSubjectsProfessors {
+        width: 300px;
+    }
 }
 
 /***** END STUDENTS *****\
@@ -420,6 +507,7 @@ nav ul li a {
 #proffesorContent {
     display: flex;
     gap: 50px;
+    margin-bottom: 50px;
 }
 
 .proffesorLbContainers {
@@ -437,8 +525,10 @@ nav ul li a {
 #lbProfessors {
     width: 250px;
     height: 150px;
-    border: 2px solid black;
     border-radius: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 2px solid lightgray;
     background-color: #e4e4e4;
     color: #333333;
 }
@@ -446,7 +536,6 @@ nav ul li a {
 #hiddenSelectedlb {
     font-weight: bold;
     color: #333333;
-    margin-top: 20px;
     margin-bottom: 5px;
     width: fit-content;
 }
@@ -455,6 +544,12 @@ nav ul li a {
 #semester,
 #degree {
     color: #333333;
+}
+
+@media screen and (max-width: 1000px) {
+    #proffesorContent {
+        flex-direction: column;
+    }
 }
 
 /***** END PROFFESORS *****\
@@ -506,12 +601,96 @@ nav ul li a {
     height: 150px;
 }
 
+#txtDegree,
+#txtCredits,
+#txtSemester,
+#txtStudentName,
+#txtStudentID,
+#txtProfessorName,
+#txtProfessorID,
+#txtNewSubjectName,
+#TxtNewSubjectDegree,
+#txtNewSubjectProfessor,
+#TxtNewSubjectCredits,
+#TxtNewSubjectSemester,
+#txtNewUserName,
+#TxtNewUserSurname,
+#txtNewUserID,
+#txtNewUserPassword {
+    margin-top: 5px;
+    height: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ADADAD;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+#txtStudentID,
+#txtProfessorID {
+    margin-bottom: 30px;
+}
+
+#TxtNewSubjectSemester {
+    margin-bottom: 25px;
+}
+
+#txtNewUserPassword {
+    margin-bottom: 5px;
+}
+
+.adminBT {
+    margin-top: 5px;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 5px;
+    border: 0;
+    border-radius: 5px;
+}
+
+#createContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10vw;
+}
+
+#subjectLabel,
+#userLabel {
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+#newSubjectContainer,
+#newUserContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 1000px) {
+
+    .listBoxsContainer {
+        flex-direction: column;
+    }
+
+    #createContainer {
+        flex-direction: column;
+    }
+}
+
 /***** END ADMIN *****\
 \*********************/
 
 /*** FOOTER ***/
 
 footer {
+    margin-top: 100px;
+    background-color: #ADADAD;
+    color: #FFFFFF;
+    padding: 20px;
+    text-align: center;
+}
+
+#footerDefault {
+    margin-top: 0px;
     background-color: #ADADAD;
     color: #FFFFFF;
     padding: 20px;
