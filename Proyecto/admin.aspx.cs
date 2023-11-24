@@ -77,6 +77,20 @@ namespace Proyecto
                 txtCredits.Text = subject.Credits.ToString(); 
                 txtSemester.Text = subject.Semester.ToString();
                 txtDegree.Text = subject.Degree;
+
+                string[] filteredStudents = serverLogic.filterStudents(SelectedSubjectID, pathDB);
+                string[] filteredProfessors = serverLogic.filterProfessors(SelectedSubjectID, pathDB);
+                lbProfessors.Items.Clear();
+                lbStudents.Items.Clear();
+
+                foreach (string student in filteredStudents)
+                {
+                    lbStudents.Items.Add(student);
+                }
+                foreach (string professor in filteredProfessors)
+                {
+                    lbProfessors.Items.Add(professor);
+                }
             }
 
         }
@@ -156,7 +170,7 @@ namespace Proyecto
             subject.Semester = Convert.ToInt32(TxtNewSubjectSemester.Text);
             subject.Credits = Convert.ToInt32(TxtNewSubjectCredits.Text);
 
-            if(serverLogic.CreateSubject(subject, professor, pathDB))
+            if(serverLogic.createSubject(subject, professor, pathDB))
             {
                 operationMessage.Text = "created succesfully";
             } else
@@ -167,7 +181,27 @@ namespace Proyecto
 
         protected void btnCreateUser_Click(object sender, EventArgs e)
         {
+            string dbFileName = "techville.db";
+            string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
+            ServerLogic serverLogic = new ServerLogic();
 
+            User user = new User();
+
+            user.Name = txtNewUserName.Text;
+            user.Surname = TxtNewUserSurname.Text;
+            user.IDNumber = txtNewUserID.Text;
+            user.UserType = rblUserType.SelectedValue;
+
+            string password = txtNewUserPassword.Text;
+
+            if (serverLogic.createUser(user, password, pathDB))
+            {
+                operationMessage.Text = "created succesfully";
+            }
+            else
+            {
+                operationMessage.Text = "error creating the User";
+            }
         }
 
         protected void lbStudents_SelectedIndexChanged(object sender, EventArgs e)

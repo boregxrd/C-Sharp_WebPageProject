@@ -74,6 +74,7 @@
                 </div>
                 <div></div>
                 <asp:TextBox ID="txtNewUserName" runat="server" placeholder="New User Name"></asp:TextBox>
+                <asp:TextBox ID="TxtNewUserSurname" runat="server" placeholder="New User Surname"></asp:TextBox>
                 <asp:TextBox ID="txtNewUserID" runat="server" placeholder="New User ID"></asp:TextBox>
                 <asp:TextBox ID="txtNewUserPassword" runat="server" placeholder="New User Password"></asp:TextBox>
                 <asp:RadioButtonList ID="rblUserType" runat="server">
