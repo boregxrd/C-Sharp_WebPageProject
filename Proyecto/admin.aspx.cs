@@ -77,6 +77,20 @@ namespace Proyecto
                 txtCredits.Text = subject.Credits.ToString(); 
                 txtSemester.Text = subject.Semester.ToString();
                 txtDegree.Text = subject.Degree;
+
+                string[] filteredStudents = serverLogic.filterStudents(SelectedSubjectID, pathDB);
+                string[] filteredProfessors = serverLogic.filterProfessors(SelectedSubjectID, pathDB);
+                lbProfessors.Items.Clear();
+                lbStudents.Items.Clear();
+
+                foreach (string student in filteredStudents)
+                {
+                    lbStudents.Items.Add(student);
+                }
+                foreach (string professor in filteredProfessors)
+                {
+                    lbProfessors.Items.Add(professor);
+                }
             }
 
         }

@@ -468,5 +468,65 @@ namespace Proyecto
                 }
             }
         }
+
+        public string[] filterStudents(int subjectID, string pathDB)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                conn.Open();
+
+                string query = "SELECT u.Name AS StudentName, u.Surname AS StudentSurname " +
+                               "FROM Student_Subjects ss " +
+                               "JOIN Users u ON ss.userID = u.UserID " +
+                               "WHERE ss.subjectID = @subjectID";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@subjectID", subjectID);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        string students = "";
+                        while (reader.Read())
+                        {
+                            string studentName = reader["StudentName"].ToString();
+                            string studentSurname = reader["StudentSurname"].ToString() + ",";
+                            students += ($"{studentName} {studentSurname}");
+                        }
+                        return students.Split(',');
+                    }
+                }
+            }
+        }
+
+        public string[] filterProfessors(int subjectID, string pathDB)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                conn.Open();
+
+                string query = "SELECT u.Name AS ProfessorName, u.Surname AS ProfessorSurname " +
+                               "FROM Teacher_Subjects ts " +
+                               "JOIN Users u ON ts.userID = u.UserID " +
+                               "WHERE ts.subjectID = @subjectID";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@subjectID", subjectID);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        string professors = "";
+                        while (reader.Read())
+                        {
+                            string professorName = reader["ProfessorName"].ToString();
+                            string professorSurname = reader["ProfessorSurname"].ToString() + ',';
+                            professors += ($"{professorName} {professorSurname}");
+                        }
+                        return professors.Split(',');
+                    }
+                }
+            }
+        }
     }
 }
