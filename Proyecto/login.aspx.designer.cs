@@ -24,22 +24,22 @@ namespace Proyecto
         protected global::System.Web.UI.HtmlControls.HtmlForm loginform;
 
         /// <summary>
-        /// Label1 control.
+        /// labelLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label labelLogin;
 
         /// <summary>
-        /// Label2 control.
+        /// labelId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label labelId;
 
         /// <summary>
         /// tbUser control.
@@ -51,13 +51,13 @@ namespace Proyecto
         protected global::System.Web.UI.WebControls.TextBox tbUser;
 
         /// <summary>
-        /// Label3 control.
+        /// labelPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label labelPassword;
 
         /// <summary>
         /// tbPassword control.

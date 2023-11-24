@@ -29,7 +29,7 @@ namespace Proyecto
                     nationality.Text = student.Nationality;
                     id.Text = student.IDNumber;
                     address.Text = student.Address;
-                    career.Text = student.Degree;
+                    career.Text = Degrestudent.Degree;
                     semester.Text = student.Semester.ToString();
                     credits.Text = student.Credits.ToString();
                     foreach (string relation in student.SubjectsProfessors)

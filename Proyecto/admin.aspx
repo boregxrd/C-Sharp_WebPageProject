@@ -30,7 +30,7 @@
 
 
         <section class = "admin">
-            <h3>Administrator's Space</h3>
+            <h3 CssClass="PageTitle">Administrator's Space</h3>
             <h5>Update or Delete<asp:Label ID="operationMessage" runat="server"></asp:Label>
             </h5>
             <div>

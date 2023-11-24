@@ -28,8 +28,10 @@
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </nav>
-                <asp:Button runat="server" Text="Login" CssClass="button" OnClick="loginButton_Click"
-                    ID="loginButton" />
+                <div class="header-button-container">
+                    <asp:Button runat="server" Text="Login" CssClass="button" OnClick="loginButton_Click"
+                        ID="loginButton" />
+                </div>
             </header>
 
             <div class="hero-section">
