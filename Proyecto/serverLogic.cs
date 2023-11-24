@@ -73,37 +73,53 @@ namespace Proyecto
                             student.IDNumber = reader["IDNumber"].ToString();
                             student.UserType = reader["UserType"].ToString();
 
-                            if (reader["DoB"] != DBNull.Value)
+                            if (reader["DoB"] != DBNull.Value && reader["DoB"] != null)
                             {
                                 student.Dob = Convert.ToDateTime(reader["DoB"]);
                             }
-
-                            if (reader["Nationality"] != DBNull.Value)
+                            else
+                            {
+                                student.Dob = DateTime.MinValue;
+                            }
+                            if (reader["Nationality"] != DBNull.Value && reader["Nationality"] != null)
                             {
                                 student.Nationality = reader["Nationality"].ToString();
                             }
+                            else
+                            {
+                                student.Nationality = "";
+                            }
 
-                            if (reader["Address"] != DBNull.Value)
+                            if (reader["Address"] != DBNull.Value && reader["Address"] != null)
                             {
                                 student.Address = reader["Address"].ToString();
                             }
+                            else
+                            {
+                                student.Address = "";
+                            }
+                        }
+                        else
+                        {
+                            // Initialize default values if no results are found
+                            student.Dob = DateTime.MinValue;
+                            student.Nationality = "";
+                            student.Address = "";
                         }
                     }
                 }
-
                 string queryForStudents = "SELECT " +
-                "d.degreeName AS Degree, " +
-                "GROUP_CONCAT(DISTINCT s.semester) AS Semesters, " +
-                "SUM(s.credits) AS TotalCredits " +
-                "FROM " +
-                "Users u " +
-                "JOIN Student_Subjects ss ON u.UserID = ss.UserID " +
-                "JOIN Subjects s ON ss.subjectID = s.subjectID " +
-                "JOIN Degree d ON ss.degreeID = d.degreeID " +
-                "WHERE " +
-                "u.UserID = @userID " +
+                "COALESCE(d.degreeName, '') AS Degree, " +
+                "(SELECT GROUP_CONCAT(DISTINCT s.semester) FROM Subjects s " +
+                "JOIN Student_Subjects ss ON s.subjectID = ss.subjectID " +
+                "WHERE ss.userID = u.userID ORDER BY s.semester) AS Semesters, " +
+                "COALESCE(SUM(s.credits), 0) AS TotalCredits " +
+                "FROM Users u " +
+                "LEFT JOIN Student_Subjects ss ON u.UserID = ss.UserID " +
+                "LEFT JOIN Subjects s ON ss.subjectID = s.subjectID " +
+                "LEFT JOIN Degree d ON ss.degreeID = d.degreeID " +
+                "WHERE u.UserID = @userID " +
                 "GROUP BY d.degreeName";
-
 
                 using (SQLiteCommand command = new SQLiteCommand(queryForStudents, conn))
                 {
@@ -119,6 +135,7 @@ namespace Proyecto
                         }
                     }
                 }
+
 
                 string queryForSubjectsProfessor = "SELECT " +
                 "p.Name AS ProfessorName, " +
@@ -145,7 +162,6 @@ namespace Proyecto
             student.SubjectsProfessors = subjectprofessoraux.Split(',');
             return student;
         }
-
         public string GetStudentsForSubject(int subjectID, string pathDB)
         {
             string studentsForSubject = string.Empty;
