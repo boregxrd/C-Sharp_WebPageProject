@@ -7,6 +7,7 @@
 
     <head runat="server">
         <title>Professor's Space</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat&display=swap">
         <link rel="stylesheet" href="styles.css" />
     </head>
 

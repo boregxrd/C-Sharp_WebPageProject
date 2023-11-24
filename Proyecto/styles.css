@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #FFFFFF;
@@ -37,12 +37,12 @@ header {
     width: 20%;
 }
 
-    .logo img {
-        display: block;
-        width: fit-content;
-        height: 100%;
-        border: none;
-    }
+.logo img {
+    display: block;
+    width: fit-content;
+    height: 100%;
+    border: none;
+}
 
 header nav {
     width: 60%;
@@ -58,14 +58,14 @@ nav ul {
     padding-left: 0;
 }
 
-    nav ul li {
-        display: inline;
-    }
+nav ul li {
+    display: inline;
+}
 
-        nav ul li a {
-            text-decoration: none;
-            color: var(--primary-color);
-        }
+nav ul li a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
 
 .header-button-container {
     display: flex;
@@ -152,11 +152,14 @@ nav ul {
     color: var(--primary-color);
 }
 
-    .main-content p {
-        color: #333333;
-    }
+.main-content p {
+    color: #333333;
+}
 
-.featured-programs, .admissions-info, .latest-news, .upcoming-events {
+.featured-programs,
+.admissions-info,
+.latest-news,
+.upcoming-events {
     margin-bottom: 20px;
 }
 
@@ -188,9 +191,9 @@ nav ul {
     line-height: 2em;
 }
 
-    .quick-links a {
-        color: var(--primary-color);
-    }
+.quick-links a {
+    color: var(--primary-color);
+}
 
 .university-leadership {
     height: fit-content;
@@ -204,7 +207,8 @@ nav ul {
     color: #ADADAD;
 }
 
-.about-techville, .university-leadership {
+.about-techville,
+.university-leadership {
     flex: 0 0 48%;
 }
 
@@ -253,7 +257,7 @@ nav ul {
 }
 
 #errorMessage {
-    color: rgba(255,0,0,.5);
+    color: rgba(255, 0, 0, .5);
     margin-bottom: 10px;
 }
 
@@ -288,7 +292,7 @@ nav ul {
 }
 
 #userInfoContainer {
-    display: flex; 
+    display: flex;
     flex-direction: row;
     align-items: center;
 }
@@ -375,11 +379,18 @@ nav ul {
     font-size: 20px;
 }
 
-#career, #careerLabel, #semester, #semesterLabel, #credits, #creditsLabel {
+#career,
+#careerLabel,
+#semester,
+#semesterLabel,
+#credits,
+#creditsLabel {
     color: #333333;
 }
 
-#careerLabel, #semesterLabel, #creditsLabel {
+#careerLabel,
+#semesterLabel,
+#creditsLabel {
     font-weight: bold;
     line-height: 1.5em;
 }
@@ -422,13 +433,14 @@ nav ul {
 }
 
 #lbSubjects,
-#lbStudents {
-  width: 263px;
-  height: 158px;
-  border: 2px solid black;
-  border-radius: 5px;
-  background-color: #e4e4e4;
-  color: #333333; 
+#lbStudents,
+#lbProfessors {
+    width: 250px;
+    height: 150px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #e4e4e4;
+    color: #333333;
 }
 
 #hiddenSelectedlb {
@@ -449,6 +461,54 @@ nav ul {
 \**************************/
 
 
+/***** ADMIN *****\
+\*****************/
+
+.admin {
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: center;
+    margin: auto;
+}
+
+#operationMessage,
+#createMessage {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 50px;
+}
+
+.listBoxsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    padding-bottom: 50px;
+    border-bottom: 5px solid var(--secondary-color);
+    margin-bottom: 50px;
+}
+
+.editListBoxContainers {
+    display: flex;
+    flex-direction: column;
+}
+
+.lbTitles {
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+#lbStudents,
+#lbSubjects,
+#lbProfessors {
+    height: 150px;
+}
+
+/***** END ADMIN *****\
+\*********************/
+
 /*** FOOTER ***/
 
 footer {
@@ -463,6 +523,6 @@ footer {
     text-decoration: none;
 }
 
-    .footer-links a:hover {
-        text-decoration: underline;
-    }
+.footer-links a:hover {
+    text-decoration: underline;
+}

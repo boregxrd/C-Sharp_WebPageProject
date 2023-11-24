@@ -6,6 +6,7 @@
 
     <head runat="server">
         <title>Login to TechVille</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat&display=swap">
         <link rel="stylesheet" href="styles.css" />
     </head>
 

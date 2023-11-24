@@ -7,6 +7,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Techville University</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat&display=swap">
         <link rel="stylesheet" href="styles.css" />
     </head>
 
@@ -55,7 +56,7 @@
                         <a href="#">Campus Map</a>
                         <a href="#">Student Resources</a>
                     </div>
-                    
+
                     <div class="social-media-feeds">
                         <h2>Join the Conversation</h2>
                         <p>Follow us on social media for real-time updates, behind-the-scenes, and community stories.
