@@ -33,6 +33,15 @@ namespace Proyecto
         protected global::System.Web.UI.WebControls.Button btLogout;
 
         /// <summary>
+        /// operationMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label operationMessage;
+
+        /// <summary>
         /// lbSubjects control.
         /// </summary>
         /// <remarks>
@@ -42,13 +51,13 @@ namespace Proyecto
         protected global::System.Web.UI.WebControls.ListBox lbSubjects;
 
         /// <summary>
-        /// txtSubjectName control.
+        /// txtDegree control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSubjectName;
+        protected global::System.Web.UI.WebControls.TextBox txtDegree;
 
         /// <summary>
         /// txtCredits control.
@@ -87,13 +96,13 @@ namespace Proyecto
         protected global::System.Web.UI.WebControls.Button btnDeleteSubject;
 
         /// <summary>
-        /// lbStudentsEnrolled control.
+        /// lbStudents control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lbStudentsEnrolled;
+        protected global::System.Web.UI.WebControls.ListBox lbStudents;
 
         /// <summary>
         /// txtStudentName control.
@@ -204,6 +213,24 @@ namespace Proyecto
         protected global::System.Web.UI.WebControls.TextBox TxtNewSubjectDegree;
 
         /// <summary>
+        /// TxtNewSubjectCredits control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtNewSubjectCredits;
+
+        /// <summary>
+        /// TxtNewSubjectSemester control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtNewSubjectSemester;
+
+        /// <summary>
         /// btnCreateSubject control.
         /// </summary>
         /// <remarks>
@@ -249,12 +276,12 @@ namespace Proyecto
         protected global::System.Web.UI.WebControls.RadioButtonList rblUserType;
 
         /// <summary>
-        /// btnInsertUser control.
+        /// btnCreateUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnInsertUser;
+        protected global::System.Web.UI.WebControls.Button btnCreateUser;
     }
 }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.UI.WebControls;
 using System.Xml.Linq;
 
 namespace Proyecto
@@ -49,9 +51,10 @@ namespace Proyecto
             }
         }
 
-        public User searchStudentData(int userID, string pathDB)
+        public User searchPersonalData(int userID, string pathDB)
         {
             User student = new User();
+            string subjectprofessoraux = "";
 
             using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
             {
@@ -124,13 +127,45 @@ namespace Proyecto
                             string professorName = reader["ProfessorName"].ToString();
                             string subjectName = reader["SubjectName"].ToString();
 
-                            student.SubjectsProfessors += $"{professorName} - {subjectName}\n";
+                            subjectprofessoraux += $"{professorName} - {subjectName}" + ",";
                         }
                     }
                 }
             }
+            student.SubjectsProfessors = subjectprofessoraux.Split(',');
             return student;
         }
+
+        public string GetStudentsForSubject(int subjectID, string pathDB)
+        {
+            string studentsForSubject = string.Empty;
+
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                conn.Open();
+
+                string query = "SELECT u.Name AS StudentName, u.Surname AS StudentSurname " +
+                               "FROM Student_Subjects ss " +
+                               "JOIN Users u ON ss.userID = u.UserID " +
+                               "WHERE ss.subjectID = @subjectID";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@subjectID", subjectID);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            studentsForSubject += reader["StudentName"].ToString() + " " + reader["StudentSurname"].ToString() + ",";
+                        }
+                    }
+                }
+            }
+
+            return studentsForSubject;
+        }
+
 
         public bool editUserStudent(User editedUser, int userID, string pathDB)
         {
@@ -157,7 +192,7 @@ namespace Proyecto
             }
         }
 
-        public string searchProfessorData(int userID, string pathDB)
+        public string[] searchProfessorData(int userID, string pathDB)
         {
             string subjectsFromProfessor = string.Empty;
 
@@ -177,61 +212,58 @@ namespace Proyecto
                     {
                         while (reader.Read())
                         {
-                            subjectsFromProfessor += reader["SubjectName"].ToString();
+                            subjectsFromProfessor += reader["SubjectName"].ToString() + ",";
                         }
                     }
                 }
             }
 
-            return subjectsFromProfessor;
+            return subjectsFromProfessor.Split(',');
         }
 
-        public int getSubjectId(string subjectName, string pathDB)
+        public int getItemId(string itemName, string role, string pathDB)
         {
             using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
             {
+                string itemIdQuery;
                 conn.Open();
-
-                string subjectIdQuery = "SELECT subjectID FROM Subjects WHERE name = @subjectName";
-
-                using (SQLiteCommand subjectIdCommand = new SQLiteCommand(subjectIdQuery, conn))
+                if (role == "null")
                 {
-                    subjectIdCommand.Parameters.AddWithValue("@subjectName", subjectName);
-
-                    int subjectID = Convert.ToInt32(subjectIdCommand.ExecuteScalar());
-                    return subjectID;
+                    itemIdQuery = "SELECT subjectID FROM Subjects WHERE name = @itemName";
                 }
-            }
-        }
-
-        public string GetStudentsForSubject(int subjectID, string pathDB)
-        {
-            string studentsForSubject = string.Empty;
-
-            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
-            {
-                conn.Open();
-
-                string query = "SELECT u.Name AS StudentName, u.Surname AS StudentSurname " +
-                               "FROM Student_Subjects ss " +
-                               "JOIN Users u ON ss.userID = u.UserID " +
-                               "WHERE ss.subjectID = @subjectID";
-
-                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                else
                 {
-                    command.Parameters.AddWithValue("@subjectID", subjectID);
+                    itemIdQuery = "SELECT userID FROM Users WHERE name = @itemName AND userType = @role";
+                }
 
-                    using (SQLiteDataReader reader = command.ExecuteReader())
+                using (SQLiteCommand itemIdCommand = new SQLiteCommand(itemIdQuery, conn))
+                {
+                    itemIdCommand.Parameters.AddWithValue("@itemName", itemName); // Corrected parameter name
+                    if (role == "null")
                     {
-                        while (reader.Read())
+                        using (SQLiteDataReader reader = itemIdCommand.ExecuteReader())
                         {
-                            studentsForSubject += reader["StudentName"].ToString() + " " + reader["StudentSurname"].ToString() + "\n";
+                            if (reader.Read())
+                            {
+                                int itemID = Convert.ToInt32(reader["subjectID"]);
+                                return itemID;
+                            }
+                        }
+                    } else {
+                        itemIdCommand.Parameters.AddWithValue("@role", role);
+                        using (SQLiteDataReader reader = itemIdCommand.ExecuteReader())
+                        {
+                            if (reader.Read()) 
+                            {
+                                int itemID = Convert.ToInt32(reader["userID"]); 
+                                return itemID;
+                            }
                         }
                     }
                 }
             }
 
-            return studentsForSubject;
+            return -1;
         }
 
 
@@ -258,6 +290,7 @@ namespace Proyecto
                             subject.Credits = Convert.ToInt32(reader["Credits"]);
                             subject.Semester = Convert.ToInt32(reader["Semester"]);
                             subject.Degree = reader["DegreeName"].ToString();
+                            subject.SubjectID = subjectID;
                         }
                     }
                 }
@@ -266,6 +299,174 @@ namespace Proyecto
             return subject;
         }
 
+        public string[] getAllFromTable(string tableName, string userType, string pathDB)
+        {
+            string result = "";
 
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                conn.Open();
+
+                string query = "";
+
+                switch (tableName)
+                {
+                    case "Subjects":
+                        query = "SELECT * FROM Subjects";
+                        break;
+                    case "Users":
+                        if (!string.IsNullOrEmpty(userType))
+                        {
+                            query = $"SELECT * FROM Users WHERE userType = '{userType}'";
+                        }
+                        else
+                        {
+                            query = "SELECT * FROM Users";
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
+                if (!string.IsNullOrEmpty(query))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                result += reader["name"].ToString() + ",";
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result.Split(',');
+        }
+
+        public bool deleteItem(int itemId, string role, string pathDB)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                string deleteQuery;
+                conn.Open();
+
+                switch (role)
+                {
+                    case "null":
+                        deleteQuery = "DELETE FROM Subjects WHERE subjectID = @itemId";
+                        break;
+
+                    case "Student":
+                    case "Professor":
+                        deleteQuery = "DELETE FROM Users WHERE userID = @itemId AND userType = @role";
+                        break;
+
+                    default:
+                        return false;
+                }
+
+                using (SQLiteCommand deleteCommand = new SQLiteCommand(deleteQuery, conn))
+                {
+                    deleteCommand.Parameters.AddWithValue("@itemId", itemId);
+                    if (role != "null")
+                    {
+                        deleteCommand.Parameters.AddWithValue("@role", role);
+                    }
+                    int rowsAffected = deleteCommand.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
+        private bool CreateDegree(string degreeName, string pathDB)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                conn.Open();
+
+                string insertDegreeQuery = "INSERT INTO Degree (DegreeName) VALUES (@degreeName)";
+
+                using (SQLiteCommand insertDegreeCommand = new SQLiteCommand(insertDegreeQuery, conn))
+                {
+                    insertDegreeCommand.Parameters.AddWithValue("@degreeName", degreeName);
+
+                    int rowsAffected = insertDegreeCommand.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
+        private int GetDegreeId(string degreeName, string pathDB)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                conn.Open();
+
+                string query = "SELECT degreeID FROM Degree WHERE degreeName = @degreeName";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@degreeName", degreeName);
+
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && int.TryParse(result.ToString(), out int degreeID))
+                    {
+                        return degreeID;
+                    }
+
+                    return -1;
+                }
+            }
+        }
+
+
+
+        public bool CreateSubject(Subject newSubject, string teacherName, string pathDB)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                conn.Open();
+
+                int teacherID = getItemId(teacherName, "Professor", pathDB);
+                if (teacherID == -1)
+                {
+                    return false;
+                }
+
+                int degreeID = GetDegreeId(newSubject.Degree, pathDB);
+                if (degreeID == -1)
+                {
+                    if (!CreateDegree(newSubject.Degree, pathDB))
+                    {
+                        return false;
+                    }
+
+                    degreeID = GetDegreeId(newSubject.Degree, pathDB);
+                }
+
+                string insertSubjectQuery = "INSERT INTO Subjects(name, degreeID, semester, credits) VALUES(@subjectName, @degreeID, @semester, @credits); " +
+                    "INSERT INTO Teacher_Subjects(userID, subjectID) VALUES(@teacherID, last_insert_rowid()); "
+;
+
+                using (SQLiteCommand insertSubjectCommand = new SQLiteCommand(insertSubjectQuery, conn))
+                {
+                    insertSubjectCommand.Parameters.AddWithValue("@subjectName", newSubject.Name);
+                    insertSubjectCommand.Parameters.AddWithValue("@degreeID", degreeID);
+                    insertSubjectCommand.Parameters.AddWithValue("@teacherID", teacherID);
+                    insertSubjectCommand.Parameters.AddWithValue("@semester", newSubject.Semester);
+                    insertSubjectCommand.Parameters.AddWithValue("@credits", newSubject.Credits);
+
+                    int rowsAffected = insertSubjectCommand.ExecuteNonQuery();
+
+
+                    return rowsAffected > 0;
+                }
+            }
+        }
     }
 }

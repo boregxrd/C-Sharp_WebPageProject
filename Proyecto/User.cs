@@ -18,7 +18,7 @@ namespace Proyecto
         public string Degree { get; set; }
         public string Semester {  get; set; }
         public int Credits { get; set; }
-        public string SubjectsProfessors { get; set; }
+        public string[] SubjectsProfessors { get; set; }
 
         public User()
         {

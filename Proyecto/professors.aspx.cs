@@ -25,9 +25,12 @@ namespace Proyecto
                     int userID = (int)Session["userID"];
                     ServerLogic serverLogic = new ServerLogic();
 
-                    String subjectsFromProfessor = serverLogic.searchProfessorData(userID, pathDB);
+                    String[] subjectsFromProfessor = serverLogic.searchProfessorData(userID, pathDB);
 
-                    lbSubjects.Items.Add(subjectsFromProfessor);
+                    foreach (string subject in subjectsFromProfessor)
+                    {
+                        lbSubjects.Items.Add(subject);
+                    }
                 }
                 else
                 {
@@ -54,7 +57,7 @@ namespace Proyecto
                 Subject subject = new Subject();
                 ServerLogic serverLogic = new ServerLogic();
 
-                int subjectID = serverLogic.getSubjectId(selectedSubjectName, pathDB);
+                int subjectID = serverLogic.getItemId(selectedSubjectName,"null", pathDB);
                 string studentsForSubject = serverLogic.GetStudentsForSubject(subjectID, pathDB);
                 subject = serverLogic.getSubjectData(subjectID, pathDB);
 

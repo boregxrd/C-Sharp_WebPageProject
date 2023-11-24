@@ -21,7 +21,7 @@ namespace Proyecto
                     int userID = (int)Session["userID"];
                     ServerLogic serverLogic = new ServerLogic();
 
-                    User student = serverLogic.searchStudentData(userID, pathDB);
+                    User student = serverLogic.searchPersonalData(userID, pathDB);
 
                     name.Text = student.Name;
                     surname.Text = student.Surname;
@@ -32,7 +32,11 @@ namespace Proyecto
                     career.Text = student.Degree;
                     semester.Text = student.Semester.ToString();
                     credits.Text = student.Credits.ToString();
-                    lbSubjectsProfessors.Items.Add(student.SubjectsProfessors.ToString());
+                    foreach (string relation in student.SubjectsProfessors)
+                    {
+                        lbSubjectsProfessors.Items.Add(relation);
+                    }
+
                 } else
                 {
                     Response.Redirect("login.aspx");
@@ -60,7 +64,7 @@ namespace Proyecto
 
             editedUser.Name = name.Text;
             editedUser.Surname = surname.Text;
-            editedUser.Dob = DateTime.ParseExact(dateOfBirth.Text, "MM/dd/yyyy HH:mm:ss", null);
+            editedUser.Dob = DateTime.ParseExact(dateOfBirth.Text, "dd/MM/yyyy HH:mm:ss", null);
             editedUser.Nationality = nationality.Text;
             editedUser.IDNumber = id.Text;
             editedUser.Address = address.Text;
