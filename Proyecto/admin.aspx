@@ -35,31 +35,41 @@
             </h5>
             <div>
                 <label>Subjects</label>
-                <asp:ListBox ID="lbSubjects" runat="server" AutoPostBack="true" OnSelectedIndexChanged="lbSubjects_SelectedIndexChanged" Height="236px" Width="300px"></asp:ListBox>
+                <asp:ListBox ID="lbSubjects" runat="server" AutoPostBack="true" OnSelectedIndexChanged="lbSubjects_SelectedIndexChanged" Height="236px" Width="300px">
+                    <asp:ListItem value="null">Deselect</asp:ListItem>
+                </asp:ListBox>
                 <asp:TextBox ID="txtDegree" runat="server" placeholder="Degree Name"></asp:TextBox>
                 <asp:TextBox ID="txtCredits" runat="server" placeholder="Credits"></asp:TextBox>
                 <asp:TextBox ID="txtSemester" runat="server" placeholder="Semester"></asp:TextBox>
                 <asp:Button ID="btnUpdateSubject" runat="server" Text="Update Subject" OnClick="btnUpdateSubject_Click" />
                 <asp:Button ID="btnDeleteSubject" runat="server" Text="Delete Subject" OnClick="btnDeleteSubject_Click" />
+                <asp:Button ID="btFilterBySubjects" runat="server" OnClick="btFilterBySubjects_Click" Text="Filter by subjects" />
             </div>
             <div></div>
             <div>
                 <label>Students</label>
-                <asp:ListBox ID="lbStudents" runat="server" AutoPostBack="true" Height="253px" Width="294px" OnSelectedIndexChanged="lbStudents_SelectedIndexChanged"></asp:ListBox>
+                <asp:ListBox ID="lbStudents" runat="server" AutoPostBack="true" Height="253px" Width="294px" OnSelectedIndexChanged="lbStudents_SelectedIndexChanged">
+                    <asp:ListItem value="null">Deselect</asp:ListItem>
+                </asp:ListBox>
                 <asp:TextBox ID="txtStudentName" runat="server" placeholder="Student Name"></asp:TextBox>
                 <asp:TextBox ID="txtStudentID" runat="server" placeholder="Student ID"></asp:TextBox>
                 <asp:Button ID="btnUpdateStudent" runat="server" Text="Update Student" OnClick="btnUpdateStudent_Click" />
                 <asp:Button ID="btnDeleteStudent" runat="server" Text="Delete Student" OnClick="btnDeleteStudent_Click" />
 
+                <asp:Button ID="btStudentAdd" runat="server" OnClick="btStudentAdd_Click" Text="Add to subject" />
+
             </div>
             <div></div>
             <div>
                 <label>Professors</label>
-                <asp:ListBox ID="lbProfessors" runat="server" AutoPostBack="true" Height="245px" Width="271px" OnSelectedIndexChanged="lbProfessors_SelectedIndexChanged"></asp:ListBox>
+                <asp:ListBox ID="lbProfessors" runat="server" AutoPostBack="true" Height="245px" Width="271px" OnSelectedIndexChanged="lbProfessors_SelectedIndexChanged">
+                    <asp:ListItem value="null">Deselect</asp:ListItem>
+                </asp:ListBox>
                 <asp:TextBox ID="txtProfessorName" runat="server" placeholder="Professor Name"></asp:TextBox>
                 <asp:TextBox ID="txtProfessorID" runat="server" placeholder="Professor ID"></asp:TextBox>
                 <asp:Button ID="btnUpdateProfessor" runat="server" Text="Update Professor" OnClick="btnUpdateProfessor_Click" />
                 <asp:Button ID="btnDeleteProfessor" runat="server" Text="Delete Professor" OnClick="btnDeleteProfessor_Click" />
+                <asp:Button ID="btProfAdd" runat="server" OnClick="btProfAdd_Click" Text="Add to subject" />
             </div>
 
             <h5>Create</h5>

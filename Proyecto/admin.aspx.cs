@@ -46,6 +46,10 @@ namespace Proyecto
             lbSubjects.Items.Clear();
             lbStudents.Items.Clear();
             lbProfessors.Items.Clear();
+            
+            lbSubjects.Items.Add("Deselect");
+            lbStudents.Items.Add("Deselect");
+            lbProfessors.Items.Add("Deselect");
 
             foreach (string subject in subjects)
             {
@@ -77,6 +81,12 @@ namespace Proyecto
                 string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
                 string selectedSubjectName = lbSubjects.SelectedItem.Text.ToString();
 
+                if (selectedSubjectName == "Deselect")
+                {
+                    loadListboxesData(pathDB);
+                    return;
+                }
+
                 Subject subject = new Subject();
                 ServerLogic serverLogic = new ServerLogic();
 
@@ -86,23 +96,55 @@ namespace Proyecto
                 txtCredits.Text = subject.Credits.ToString(); 
                 txtSemester.Text = subject.Semester.ToString();
                 txtDegree.Text = subject.Degree;
-
-                string[] filteredStudents = serverLogic.filterStudents(SelectedSubjectID, pathDB);
-                string[] filteredProfessors = serverLogic.filterProfessors(SelectedSubjectID, pathDB);
-                lbProfessors.Items.Clear();
-                lbStudents.Items.Clear();
-
-                foreach (string student in filteredStudents)
-                {
-                    lbStudents.Items.Add(student);
-                }
-                foreach (string professor in filteredProfessors)
-                {
-                    lbProfessors.Items.Add(professor);
-                }
             }
 
         }
+
+        protected void lbStudents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string dbFileName = "techville.db";
+            string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
+            string selectedStudentName = lbStudents.SelectedItem.Text.ToString();
+
+            if (selectedStudentName == "Deselect")
+            {
+                loadListboxesData(pathDB);
+                return;
+            }
+
+            User student = new User();
+            ServerLogic serverLogic = new ServerLogic();
+
+            SelectedStudentID = serverLogic.getItemId(selectedStudentName, "Student", pathDB);
+            student = serverLogic.searchPersonalData(SelectedStudentID, pathDB);
+
+            txtStudentName.Text = student.Name;
+            txtStudentID.Text = student.IDNumber;
+        }
+
+        protected void lbProfessors_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string dbFileName = "techville.db";
+            string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
+            string selectedProfessorName = lbProfessors.SelectedItem.Text.ToString();
+
+            if (selectedProfessorName == "Deselect")
+            {
+                loadListboxesData(pathDB);
+                return;
+            }
+
+            User professor = new User();
+            ServerLogic serverLogic = new ServerLogic();
+
+            SelectedProfessorID = serverLogic.getItemId(selectedProfessorName, "Professor", pathDB);
+            professor = serverLogic.searchPersonalData(SelectedProfessorID, pathDB);
+
+            txtProfessorName.Text = professor.Name;
+            txtProfessorID.Text = professor.IDNumber;
+
+        }
+
         protected void btnUpdateSubject_Click(object sender, EventArgs e)
         {
             string dbFileName = "techville.db";
@@ -111,7 +153,6 @@ namespace Proyecto
             Subject editedSubject = new Subject();
 
             string selectedSubjectName = lbSubjects.SelectedItem.Text.ToString();
-
             int privateSelectedSubjectID = serverLogic.getItemId(selectedSubjectName, "null", pathDB);
 
             editedSubject.Semester = Convert.ToInt32(txtSemester.Text);
@@ -135,9 +176,13 @@ namespace Proyecto
             string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
             ServerLogic serverLogic = new ServerLogic();
 
-            if(serverLogic.deleteItem(SelectedSubjectID, "null", pathDB))
+            string selectedSubjectName = lbSubjects.SelectedItem.Text.ToString();
+            int privateSelectedSubjectID = serverLogic.getItemId(selectedSubjectName, "null", pathDB);
+
+            if (serverLogic.deleteItem(privateSelectedSubjectID, "null", pathDB))
             {
                 operationMessage.Text = "deleted succesfully";
+                loadListboxesData(pathDB);
             } else
             {
                 operationMessage.Text = "error deleting that item";
@@ -178,9 +223,13 @@ namespace Proyecto
             string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
             ServerLogic serverLogic = new ServerLogic();
 
-            if (serverLogic.deleteItem(SelectedStudentID, "Student", pathDB))
+            string selectedStudentName = lbStudents.SelectedItem.Text.ToString();
+            int privateSelectedStudentID = serverLogic.getItemId(selectedStudentName, "Student", pathDB);
+
+            if (serverLogic.deleteItem(privateSelectedStudentID, "Student", pathDB))
             {
                 operationMessage.Text = "deleted succesfully";
+                loadListboxesData(pathDB);
             }
             else
             {
@@ -221,9 +270,13 @@ namespace Proyecto
             string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
             ServerLogic serverLogic = new ServerLogic();
 
-            if (serverLogic.deleteItem(SelectedProfessorID, "Professor", pathDB))
+            string selectedProfessorName = lbProfessors.SelectedItem.Text.ToString();
+            int privateSelectedProfessorID = serverLogic.getItemId(selectedProfessorName, "Professor", pathDB);
+
+            if (serverLogic.deleteItem(privateSelectedProfessorID, "Professor", pathDB))
             {
                 operationMessage.Text = "deleted succesfully";
+                loadListboxesData(pathDB);
             }
             else
             {
@@ -248,6 +301,7 @@ namespace Proyecto
             if(serverLogic.createSubject(subject, professor, pathDB))
             {
                 operationMessage.Text = "created succesfully";
+                loadListboxesData(pathDB);
             } else
             {
                 operationMessage.Text = "error creating the Subject";
@@ -272,6 +326,7 @@ namespace Proyecto
             if (serverLogic.createUser(user, password, pathDB))
             {
                 operationMessage.Text = "created succesfully";
+                loadListboxesData(pathDB);
             }
             else
             {
@@ -279,39 +334,68 @@ namespace Proyecto
             }
         }
 
-        protected void lbStudents_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btFilterBySubjects_Click(object sender, EventArgs e)
         {
             string dbFileName = "techville.db";
             string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
+            string selectedSubjectName = lbSubjects.SelectedItem.Text.ToString();
+            ServerLogic serverLogic = new ServerLogic();   
+
+            int privateSelectedSubjectID = serverLogic.getItemId(selectedSubjectName, "null", pathDB);
+            string[] filteredStudents = serverLogic.filterStudents(privateSelectedSubjectID, pathDB);
+            string[] filteredProfessors = serverLogic.filterProfessors(privateSelectedSubjectID, pathDB);
+
+            lbProfessors.Items.Clear();
+            lbStudents.Items.Clear();
+
+            foreach (string student in filteredStudents)
+            {
+                lbStudents.Items.Add(student);
+            }
+            foreach (string professor in filteredProfessors)
+            {
+                lbProfessors.Items.Add(professor);
+            }
+        }
+
+        protected void btStudentAdd_Click(object sender, EventArgs e)
+        {
+            string dbFileName = "techville.db";
+            string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
+            ServerLogic serverLogic = new ServerLogic();
+            string selectedSubjectName = lbSubjects.SelectedItem.Text.ToString();
             string selectedStudentName = lbStudents.SelectedItem.Text.ToString();
+            int privateSelectedSubjectID = serverLogic.getItemId(selectedSubjectName, "null", pathDB);
+            int privateSelectedStudentID = serverLogic.getItemId(selectedStudentName, "Student", pathDB);
 
-            User student = new User();
-            ServerLogic serverLogic = new ServerLogic();
+            if(serverLogic.AssignUserToSubject(privateSelectedStudentID, privateSelectedSubjectID, "Student", pathDB))
+            {
+                operationMessage.Text = "Student succesfully added to the subject";
+            } else
+            {
+                operationMessage.Text = "Error adding the student to that subject";
+            }
 
-            SelectedStudentID = serverLogic.getItemId(selectedStudentName, "Student", pathDB);
-            student = serverLogic.searchPersonalData(SelectedStudentID, pathDB);
-
-            txtStudentName.Text = student.Name;
-            txtStudentID.Text = student.IDNumber;
         }
 
-        protected void lbProfessors_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btProfAdd_Click(object sender, EventArgs e)
         {
             string dbFileName = "techville.db";
             string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
-            string selectedProfessorName = lbProfessors.SelectedItem.Text.ToString();
-
-            User professor = new User();
             ServerLogic serverLogic = new ServerLogic();
+            string selectedSubjectName = lbSubjects.SelectedItem.Text.ToString();
+            string selectedProfessorName = lbProfessors.SelectedItem.Text.ToString();
+            int privateSelectedSubjectID = serverLogic.getItemId(selectedSubjectName, "null", pathDB);
+            int privateSelectedProfessorID = serverLogic.getItemId(selectedProfessorName, "Professor", pathDB);
 
-            SelectedProfessorID = serverLogic.getItemId(selectedProfessorName, "Professor", pathDB);
-            professor = serverLogic.searchPersonalData(SelectedProfessorID, pathDB);
-
-            txtProfessorName.Text = professor.Name;
-            txtProfessorID.Text = professor.IDNumber;
-
+            if (serverLogic.AssignUserToSubject(privateSelectedProfessorID, privateSelectedSubjectID, "Professor", pathDB))
+            {
+                operationMessage.Text = "Professor succesfully added to the subject";
+            }
+            else
+            {
+                operationMessage.Text = "Error adding the professor to that subject";
+            }
         }
-
-        
     }
 }
