@@ -177,7 +177,7 @@ namespace Proyecto
         }
 
 
-        public bool editUserStudent(User editedUser, int userID, string pathDB)
+        public bool editUser(User editedUser, int userID, bool adminEdit, string pathDB)
         {
             using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
             {
@@ -185,16 +185,55 @@ namespace Proyecto
                 string query = "UPDATE Users SET Name = @editedName, Surname = @editedSurname, DoB = @editedDob, " +
                                "Nationality = @editedNationality, IDNumber = @editedId, Address = @editedAddress WHERE UserID = @userID";
 
+                string queryForAdmin = "UPDATE Users SET Name = @editedName, IDNumber = @editedId WHERE UserID = @userID";
+
+                if (adminEdit)
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(queryForAdmin, conn))
+                    {
+                        command.Parameters.AddWithValue("@editedName", editedUser.Name);
+                        command.Parameters.AddWithValue("@editedId", editedUser.IDNumber);
+                        command.Parameters.AddWithValue("@userID", userID);
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        return rowsAffected > 0;
+                    }
+                }
+                else
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@editedName", editedUser.Name);
+                        command.Parameters.AddWithValue("@editedSurname", editedUser.Surname);
+                        command.Parameters.AddWithValue("@editedDob", editedUser.Dob);
+                        command.Parameters.AddWithValue("@editedNationality", editedUser.Nationality);
+                        command.Parameters.AddWithValue("@editedId", editedUser.IDNumber);
+                        command.Parameters.AddWithValue("@userID", userID);
+                        command.Parameters.AddWithValue("@editedAddress", editedUser.Address);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+        }
+
+        public bool editSubject(Subject subject, int subjectId, string pathDB)
+        {
+            int degreeID = GetDegreeId(subject.Degree, pathDB);
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                conn.Open();
+                string query = "UPDATE Subjects SET Credits = @editedCredits, Semester = @editedSemester, " +
+                    "DegreeID = @degreeID WHERE SubjectId = @subjectId";
+
                 using (SQLiteCommand command = new SQLiteCommand(query, conn))
                 {
-                    command.Parameters.AddWithValue("@editedName", editedUser.Name);
-                    command.Parameters.AddWithValue("@editedSurname", editedUser.Surname);
-                    command.Parameters.AddWithValue("@editedDob", editedUser.Dob);
-                    command.Parameters.AddWithValue("@editedNationality", editedUser.Nationality);
-                    command.Parameters.AddWithValue("@editedId", editedUser.IDNumber);
-                    command.Parameters.AddWithValue("@userID", userID);
-                    command.Parameters.AddWithValue("@editedAddress", editedUser.Address);
-
+                    command.Parameters.AddWithValue("@editedCredits", subject.Credits);
+                    command.Parameters.AddWithValue("@editedSemester", subject.Semester);
+                    command.Parameters.AddWithValue("@degreeID", degreeID);
+                    command.Parameters.AddWithValue("@subjectId", subjectId);
                     int rowsAffected = command.ExecuteNonQuery();
 
                     return rowsAffected > 0;

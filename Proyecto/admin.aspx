@@ -36,7 +36,7 @@
             <div>
                 <label>Subjects</label>
                 <asp:ListBox ID="lbSubjects" runat="server" AutoPostBack="true" OnSelectedIndexChanged="lbSubjects_SelectedIndexChanged" Height="236px" Width="300px"></asp:ListBox>
-                <asp:TextBox ID="txtDegree" runat="server" placeholder="Subject Name"></asp:TextBox>
+                <asp:TextBox ID="txtDegree" runat="server" placeholder="Degree Name"></asp:TextBox>
                 <asp:TextBox ID="txtCredits" runat="server" placeholder="Credits"></asp:TextBox>
                 <asp:TextBox ID="txtSemester" runat="server" placeholder="Semester"></asp:TextBox>
                 <asp:Button ID="btnUpdateSubject" runat="server" Text="Update Subject" OnClick="btnUpdateSubject_Click" />

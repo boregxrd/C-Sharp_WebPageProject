@@ -64,13 +64,14 @@ namespace Proyecto
 
             editedUser.Name = name.Text;
             editedUser.Surname = surname.Text;
-            editedUser.Dob = DateTime.ParseExact(dateOfBirth.Text, "dd/MM/yyyy HH:mm:ss", null);
+            editedUser.Dob = DateTime.ParseExact(dateOfBirth.Text, "dd/MM/yyyy", null);
             editedUser.Nationality = nationality.Text;
             editedUser.IDNumber = id.Text;
             editedUser.Address = address.Text;
 
             ServerLogic serverLogic = new ServerLogic();
-            if (serverLogic.editUserStudent(editedUser, userID, pathDB))
+            bool isAdminEdit = false;
+            if (serverLogic.editUser(editedUser, userID, isAdminEdit, pathDB))
             {
                 editMessage.Text = "Your data has been edited correctly";
             }

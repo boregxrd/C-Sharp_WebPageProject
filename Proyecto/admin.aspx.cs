@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Drawing.Design;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 namespace Proyecto
 {
@@ -24,33 +27,39 @@ namespace Proyecto
             {
                 if (Session["userID"] != null)
                 {
-                    int userID = (int)Session["userID"];
-                    ServerLogic serverLogic = new ServerLogic();
-
-                    string []subjects = serverLogic.getAllFromTable("Subjects", "null", pathDB);
-                    string []students = serverLogic.getAllFromTable("Users", "Student", pathDB);
-                    string []professors = serverLogic.getAllFromTable("Users", "Professor", pathDB);
-
-
-                    foreach (string subject in subjects)
-                    {
-                        lbSubjects.Items.Add(subject);
-                    }
-
-                    foreach (string student in students)
-                    {
-                        lbStudents.Items.Add(student);
-                    }
-
-                    foreach (string professor in professors)
-                    {
-                        lbProfessors.Items.Add(professor);
-                    }
+                    loadListboxesData(pathDB);
                 } else
                 {
                     Response.Redirect("Default.aspx");
                 }
 
+            }
+        }
+
+        private void loadListboxesData(string pathDB)
+        {
+            ServerLogic serverLogic = new ServerLogic();
+            string[] subjects = serverLogic.getAllFromTable("Subjects", "null", pathDB);
+            string[] students = serverLogic.getAllFromTable("Users", "Student", pathDB);
+            string[] professors = serverLogic.getAllFromTable("Users", "Professor", pathDB);
+
+            lbSubjects.Items.Clear();
+            lbStudents.Items.Clear();
+            lbProfessors.Items.Clear();
+
+            foreach (string subject in subjects)
+            {
+                lbSubjects.Items.Add(subject);
+            }
+
+            foreach (string student in students)
+            {
+                lbStudents.Items.Add(student);
+            }
+
+            foreach (string professor in professors)
+            {
+                lbProfessors.Items.Add(professor);
             }
         }
 
@@ -96,6 +105,28 @@ namespace Proyecto
         }
         protected void btnUpdateSubject_Click(object sender, EventArgs e)
         {
+            string dbFileName = "techville.db";
+            string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
+            ServerLogic serverLogic = new ServerLogic();
+            Subject editedSubject = new Subject();
+
+            string selectedSubjectName = lbSubjects.SelectedItem.Text.ToString();
+
+            int privateSelectedSubjectID = serverLogic.getItemId(selectedSubjectName, "null", pathDB);
+
+            editedSubject.Semester = Convert.ToInt32(txtSemester.Text);
+            editedSubject.Degree = txtDegree.Text;
+            editedSubject.Credits = Convert.ToInt32(txtCredits.Text);
+
+            if (serverLogic.editSubject(editedSubject, privateSelectedSubjectID, pathDB))
+            {
+                operationMessage.Text = "The subject data has been edited correctly";
+                loadListboxesData(pathDB);
+            }
+            else
+            {
+                operationMessage.Text = "Error editing subject data";
+            }
 
         }
         protected void btnDeleteSubject_Click(object sender, EventArgs e)
@@ -116,7 +147,29 @@ namespace Proyecto
 
         protected void btnUpdateStudent_Click(object sender, EventArgs e)
         {
+            string dbFileName = "techville.db";
+            string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
+            ServerLogic serverLogic = new ServerLogic();
+            User editedUser = new User();
 
+            string selectedStudentName = lbStudents.SelectedItem.Text.ToString();
+
+            int privateSelectedStudentID = serverLogic.getItemId(selectedStudentName, "Student", pathDB);
+
+            editedUser.Name = txtStudentName.Text;
+            editedUser.IDNumber = txtStudentID.Text;
+
+            bool isAdminEdit = true;
+
+            if (serverLogic.editUser(editedUser, privateSelectedStudentID, isAdminEdit, pathDB))
+            {
+                operationMessage.Text = "The student data has been edited correctly";
+                loadListboxesData(pathDB);
+            }
+            else
+            {
+                operationMessage.Text = "Error editing student data";
+            }
         }
 
         protected void btnDeleteStudent_Click(object sender, EventArgs e)
@@ -137,7 +190,29 @@ namespace Proyecto
 
         protected void btnUpdateProfessor_Click(object sender, EventArgs e)
         {
+            string dbFileName = "techville.db";
+            string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
+            ServerLogic serverLogic = new ServerLogic();
+            User editedUser = new User();
 
+            string selectedProfessorName = lbProfessors.SelectedItem.Text.ToString();
+
+            int privateSelectedProfessorID = serverLogic.getItemId(selectedProfessorName, "Professor", pathDB);
+
+            editedUser.Name = txtProfessorName.Text;
+            editedUser.IDNumber = txtProfessorID.Text;
+
+            bool isAdminEdit = true;
+
+            if (serverLogic.editUser(editedUser, privateSelectedProfessorID, isAdminEdit, pathDB))
+            {
+                operationMessage.Text = "The professor data has been edited correctly";
+                loadListboxesData(pathDB);
+            }
+            else
+            {
+                operationMessage.Text = "Error editing professor data";
+            }
         }
 
         protected void btnDeleteProfessor_Click(object sender, EventArgs e)
