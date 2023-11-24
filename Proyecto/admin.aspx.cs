@@ -170,7 +170,7 @@ namespace Proyecto
             subject.Semester = Convert.ToInt32(TxtNewSubjectSemester.Text);
             subject.Credits = Convert.ToInt32(TxtNewSubjectCredits.Text);
 
-            if(serverLogic.CreateSubject(subject, professor, pathDB))
+            if(serverLogic.createSubject(subject, professor, pathDB))
             {
                 operationMessage.Text = "created succesfully";
             } else
@@ -181,7 +181,27 @@ namespace Proyecto
 
         protected void btnCreateUser_Click(object sender, EventArgs e)
         {
+            string dbFileName = "techville.db";
+            string pathDB = Path.Combine(Server.MapPath("~"), dbFileName);
+            ServerLogic serverLogic = new ServerLogic();
 
+            User user = new User();
+
+            user.Name = txtNewUserName.Text;
+            user.Surname = TxtNewUserSurname.Text;
+            user.IDNumber = txtNewUserID.Text;
+            user.UserType = rblUserType.SelectedValue;
+
+            string password = txtNewUserPassword.Text;
+
+            if (serverLogic.createUser(user, password, pathDB))
+            {
+                operationMessage.Text = "created succesfully";
+            }
+            else
+            {
+                operationMessage.Text = "error creating the User";
+            }
         }
 
         protected void lbStudents_SelectedIndexChanged(object sender, EventArgs e)

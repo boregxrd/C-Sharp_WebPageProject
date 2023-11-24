@@ -4,7 +4,9 @@ using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -20,18 +22,14 @@ namespace Proyecto
             using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
             {
                 conn.Open();
-                string query = "SELECT * FROM Users WHERE IDNumber = @idnumber AND hashPassword = @password";
+                string query = "SELECT * FROM Users WHERE IDNumber = @idnumber AND hashPassword = @hashedPassword";
 
-                /* using (MD5 md5Hash = MD5.Create())
-                {
-                    byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(inputPassword));
-                    inputPassword = BitConverter.ToString(data).Replace("-", string.Empty);
-                }*/
+                string hashedPassword = HashPassword(password);
 
                 using (SQLiteCommand command = new SQLiteCommand(query, conn))
                 {
                     command.Parameters.AddWithValue("@idnumber", id);
-                    command.Parameters.AddWithValue("@password", password);
+                    command.Parameters.AddWithValue("@hashedPassword", hashedPassword);
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
@@ -72,11 +70,23 @@ namespace Proyecto
                             student.UserID = Convert.ToInt32(reader["UserID"]);
                             student.Name = reader["Name"].ToString();
                             student.Surname = reader["Surname"].ToString();
-                            student.Dob = Convert.ToDateTime(reader["DoB"]);
-                            student.Nationality = reader["Nationality"].ToString();
                             student.IDNumber = reader["IDNumber"].ToString();
-                            student.Address = reader["Address"].ToString();
                             student.UserType = reader["UserType"].ToString();
+
+                            if (reader["DoB"] != DBNull.Value)
+                            {
+                                student.Dob = Convert.ToDateTime(reader["DoB"]);
+                            }
+
+                            if (reader["Nationality"] != DBNull.Value)
+                            {
+                                student.Nationality = reader["Nationality"].ToString();
+                            }
+
+                            if (reader["Address"] != DBNull.Value)
+                            {
+                                student.Address = reader["Address"].ToString();
+                            }
                         }
                     }
                 }
@@ -426,7 +436,7 @@ namespace Proyecto
 
 
 
-        public bool CreateSubject(Subject newSubject, string teacherName, string pathDB)
+        public bool createSubject(Subject newSubject, string teacherName, string pathDB)
         {
             using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
             {
@@ -466,6 +476,48 @@ namespace Proyecto
 
                     return rowsAffected > 0;
                 }
+            }
+        }
+
+        public bool createUser(User newUser, string password, string pathDB)
+        {
+            string hashedPassword = HashPassword(password);
+
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                conn.Open();
+
+                string insertUserQuery = "INSERT INTO Users (Name, Surname, IDNumber, UserType, hashPassword) " +
+                                         "VALUES (@Name, @Surname, @IDNumber, @UserType, @HashPassword)";
+
+                using (SQLiteCommand insertUserCommand = new SQLiteCommand(insertUserQuery, conn))
+                {
+                    insertUserCommand.Parameters.AddWithValue("@Name", newUser.Name);
+                    insertUserCommand.Parameters.AddWithValue("@Surname", newUser.Surname);
+                    insertUserCommand.Parameters.AddWithValue("@IDNumber", newUser.IDNumber);
+                    insertUserCommand.Parameters.AddWithValue("@UserType", newUser.UserType);
+                    insertUserCommand.Parameters.AddWithValue("@HashPassword", hashedPassword);
+
+                    int rowsAffected = insertUserCommand.ExecuteNonQuery();
+
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < hashedBytes.Length; i++)
+                {
+                    builder.Append(hashedBytes[i].ToString("x2"));
+                }
+
+                return builder.ToString();
             }
         }
 
