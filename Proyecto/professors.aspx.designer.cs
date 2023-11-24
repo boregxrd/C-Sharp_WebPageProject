@@ -42,12 +42,57 @@ namespace Proyecto
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// lbSubjectsStudents control.
+        /// lbSubjects control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lbSubjectsStudents;
+        protected global::System.Web.UI.WebControls.ListBox lbSubjects;
+
+        /// <summary>
+        /// lbStudents control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lbStudents;
+
+        /// <summary>
+        /// hiddenSelectedlb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label hiddenSelectedlb;
+
+        /// <summary>
+        /// credits control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label credits;
+
+        /// <summary>
+        /// semester control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label semester;
+
+        /// <summary>
+        /// degree control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label degree;
     }
 }

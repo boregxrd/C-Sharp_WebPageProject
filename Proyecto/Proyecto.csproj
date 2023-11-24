@@ -138,6 +138,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Subject.cs" />
     <Compile Include="User.cs" />
     <Compile Include="students.aspx.cs">
       <DependentUpon>students.aspx</DependentUpon>

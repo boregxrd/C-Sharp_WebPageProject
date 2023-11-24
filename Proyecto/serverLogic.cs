@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml.Linq;
@@ -155,5 +156,116 @@ namespace Proyecto
                 }
             }
         }
+
+        public string searchProfessorData(int userID, string pathDB)
+        {
+            string subjectsFromProfessor = string.Empty;
+
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                conn.Open();
+                string query = "SELECT s.name AS SubjectName " +
+                               "FROM Teacher_Subjects ts " +
+                               "JOIN Subjects s ON ts.subjectID = s.subjectID " +
+                               "WHERE ts.userID = @userID";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@userID", userID);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            subjectsFromProfessor += reader["SubjectName"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return subjectsFromProfessor;
+        }
+
+        public int getSubjectId(string subjectName, string pathDB)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                conn.Open();
+
+                string subjectIdQuery = "SELECT subjectID FROM Subjects WHERE name = @subjectName";
+
+                using (SQLiteCommand subjectIdCommand = new SQLiteCommand(subjectIdQuery, conn))
+                {
+                    subjectIdCommand.Parameters.AddWithValue("@subjectName", subjectName);
+
+                    int subjectID = Convert.ToInt32(subjectIdCommand.ExecuteScalar());
+                    return subjectID;
+                }
+            }
+        }
+
+        public string GetStudentsForSubject(int subjectID, string pathDB)
+        {
+            string studentsForSubject = string.Empty;
+
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                conn.Open();
+
+                string query = "SELECT u.Name AS StudentName, u.Surname AS StudentSurname " +
+                               "FROM Student_Subjects ss " +
+                               "JOIN Users u ON ss.userID = u.UserID " +
+                               "WHERE ss.subjectID = @subjectID";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@subjectID", subjectID);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            studentsForSubject += reader["StudentName"].ToString() + " " + reader["StudentSurname"].ToString() + "\n";
+                        }
+                    }
+                }
+            }
+
+            return studentsForSubject;
+        }
+
+
+        public Subject getSubjectData(int subjectID, string pathDB)
+        {
+            Subject subject = new Subject();
+
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + pathDB + ";Version=3;"))
+            {
+                conn.Open();
+                string query = "SELECT s.SubjectID, s.Name AS SubjectName, s.Credits, s.DegreeID, s.Semester, d.DegreeName " +
+                               "FROM Subjects s " +
+                               "JOIN Degree d ON s.DegreeID = d.DegreeID " +
+                               "WHERE s.SubjectID = @subjectID";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@subjectID", subjectID);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            subject.Credits = Convert.ToInt32(reader["Credits"]);
+                            subject.Semester = Convert.ToInt32(reader["Semester"]);
+                            subject.Degree = reader["DegreeName"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return subject;
+        }
+
+
     }
 }
