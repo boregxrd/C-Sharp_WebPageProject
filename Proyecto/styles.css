@@ -1,4 +1,10 @@
-﻿body {
+﻿:root {
+    --primary-color: #d10000;
+    --secondary-color: #A33333;
+    --dark-color:#660000;
+}
+
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -6,7 +12,11 @@
     color: #ADADAD;
 }
 
+/*---- HEADER ----*/
+
 header {
+    top: 0px;
+    position: fixed;
     background-color: #FFFFFF;
     padding: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -15,6 +25,8 @@ header {
     align-items: center;
     flex-direction: row;
     height: 60px;
+    width: 100%;
+    z-index: 9999;
 }
 
 .logo {
@@ -45,40 +57,44 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #AD3333;
+    color: var(--primary-color);
 }
 
 .button {
-    background-color: #AD3333;
+    background-color: var(--primary-color);
     color: #FFFFFF;
     padding: 8px 15px;
-    border: none;
-    cursor: pointer;
+    border: 1px solid var(--secondary-color);
     border-radius: 5px;
+    cursor: pointer;
 }
 
+/*---- HERO SECTION ----*/
+
 .hero-section {
+    margin-top: 60px;
     position: relative;
     text-align: center;
     color: #FFFFFF;
-    height:39em;
+    height: 90%;
+    border-bottom: 4px solid var(--secondary-color);
 }
 
 .background-image {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: absolute;background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%), url('tu-imagen.jpg');
+    background-blend-mode: screen;
     width: 100%;
     height: 100%;
     z-index: -1;
+    filter: brightness(0.7);
     overflow: hidden;
 }
 
-    .background-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+.background-image img {
+    width: 130%;
+    height: 100%;
+    object-fit: cover;
+}
 
 .overlay {
     position: absolute;
@@ -89,7 +105,6 @@ nav ul li a {
     background-color: rgba(0, 0, 0, 0.15);
 }
 
-
 .content-overlay {
     padding: 20px;
     position: relative;
@@ -97,17 +112,33 @@ nav ul li a {
 }
 
 .welcome-message {
-    font-size: 3em;
+    text-align: left;
+    font-size: 2em;
     font-weight: 700;
-    color: #AD3333;
-    padding: 10% 20% 0 20%;
+    color: white;
+    padding-right: 60%;
     margin: auto;
+    margin-top: 1em;
+    margin-left: 1em;
+    line-height: 1.43em;
+}
+
+/*---- CONTENT ----*/
+
+.content {
+    display: flex;
+    flex-direction: row;
 }
 
 .main-content {
+    width: 60%;
     background-color: #FFFFFF;
-    padding: 20px;
-    color: #ADADAD;
+    padding: 20px 50px;
+    color: var(--primary-color);
+}
+
+.main-content p {
+    color: #333333;
 }
 
 .featured-programs, .admissions-info, .latest-news, .upcoming-events {
@@ -115,13 +146,39 @@ nav ul li a {
 }
 
 .sidebar {
-    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20%;
+    background-color: #ebebeb;
     padding: 20px;
-    color: #ADADAD;
+    color: var(--secondary-color);
 }
 
-.quick-links, .social-media-feeds {
-    margin-bottom: 20px;
+#sidebar-left {
+    text-align: start;
+    padding-left: 40px;
+    border-right: 4px solid var(--secondary-color);
+}
+
+#sidebar-right {
+    text-align: end;
+    padding-right: 40px;
+    border-left: 4px solid var(--secondary-color);
+}
+
+.quick-links {
+    display: flex;
+    flex-direction: column;
+    line-height: 2em;
+}
+
+.quick-links a {
+    color: var(--primary-color);
+}
+
+.university-leadership {
+    height: fit-content;
 }
 
 .about-section {
