@@ -18,5 +18,50 @@ namespace Proyecto
         {
             Response.Redirect("Default.aspx");
         }
+
+        protected void lbSubjects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void btnUpdateSubject_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void btnDeleteSubject_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnUpdateStudent_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnDeleteStudent_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnUpdateProfessor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnDeleteProfessor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCreateSubject_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnInsertUser_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }

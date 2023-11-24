@@ -30,12 +30,56 @@
 
 
         <section class = "admin">
-            <asp:Label ID="Label1" runat="server" Text="Administrator's Space"></asp:Label>
-            <asp:ListBox ID="lbStudents" runat="server" Height="384px" Width="367px"></asp:ListBox>
-            <asp:ListBox ID="lbProfessorsSubjects" runat="server" Height="384px" Width="367px"></asp:ListBox>
-            <asp:Button ID="btAdd" runat="server" Text="Add" />
-            <asp:Button ID="btEdit" runat="server" Text="Edit" />
-            <asp:Button ID="btDelete" runat="server" Text="Delete" />
+            <h3>Administrator's Space</h3>
+            <h5>Update or Delete</h5>
+            <div>
+                <label>Subjects</label>
+                <asp:ListBox ID="lbSubjects" runat="server" AutoPostBack="true" OnSelectedIndexChanged="lbSubjects_SelectedIndexChanged" Height="236px" Width="300px"></asp:ListBox>
+                <asp:TextBox ID="txtSubjectName" runat="server" placeholder="Subject Name"></asp:TextBox>
+                <asp:TextBox ID="txtCredits" runat="server" placeholder="Credits"></asp:TextBox>
+                <asp:TextBox ID="txtSemester" runat="server" placeholder="Semester"></asp:TextBox>
+                <asp:Button ID="btnUpdateSubject" runat="server" Text="Update Subject" OnClick="btnUpdateSubject_Click" />
+                <asp:Button ID="btnDeleteSubject" runat="server" Text="Delete Subject" OnClick="btnDeleteSubject_Click" />
+            </div>
+            <div></div>
+            <div>
+                <label>Students</label>
+                <asp:ListBox ID="lbStudentsEnrolled" runat="server" AutoPostBack="true" Height="253px" Width="294px"></asp:ListBox>
+                <asp:TextBox ID="txtStudentName" runat="server" placeholder="Student Name"></asp:TextBox>
+                <asp:TextBox ID="txtStudentID" runat="server" placeholder="Student ID"></asp:TextBox>
+                <asp:Button ID="btnUpdateStudent" runat="server" Text="Update Student" OnClick="btnUpdateStudent_Click" />
+                <asp:Button ID="btnDeleteStudent" runat="server" Text="Delete Student" OnClick="btnDeleteStudent_Click" />
+
+            </div>
+            <div></div>
+            <div>
+                <label>Professors</label>
+                <asp:ListBox ID="lbProfessors" runat="server" AutoPostBack="true" Height="245px" Width="271px"></asp:ListBox>
+                <asp:TextBox ID="txtProfessorName" runat="server" placeholder="Professor Name"></asp:TextBox>
+                <asp:TextBox ID="txtProfessorID" runat="server" placeholder="Professor ID"></asp:TextBox>
+                <asp:Button ID="btnUpdateProfessor" runat="server" Text="Update Professor" OnClick="btnUpdateProfessor_Click" />
+                <asp:Button ID="btnDeleteProfessor" runat="server" Text="Delete Professor" OnClick="btnDeleteProfessor_Click" />
+            </div>
+
+            <h5>Create</h5>
+            <div>
+                <asp:TextBox ID="txtNewSubjectName" runat="server" placeholder="New Subject Name"></asp:TextBox>
+                <asp:TextBox ID="txtNewSubjectProfessor" runat="server" placeholder="New Professor Name"></asp:TextBox>
+                <asp:TextBox ID="TxtNewSubjectDegree" runat="server" placeholder="New Degree Name"></asp:TextBox>
+                <div>
+                <asp:Button ID="btnCreateSubject" runat="server" Text="Create Subject" OnClick="btnCreateSubject_Click" />
+                </div>
+                <div></div>
+                <asp:TextBox ID="txtNewUserName" runat="server" placeholder="New User Name"></asp:TextBox>
+                <asp:TextBox ID="txtNewUserID" runat="server" placeholder="New User ID"></asp:TextBox>
+                <asp:TextBox ID="txtNewUserPassword" runat="server" placeholder="New User Password"></asp:TextBox>
+                <asp:RadioButtonList ID="rblUserType" runat="server">
+                    <asp:ListItem Text="Student" Value="Student" />
+                    <asp:ListItem Text="Professor" Value="Professor" />
+                </asp:RadioButtonList>
+                <asp:Button ID="btnInsertUser" runat="server" Text="Insert User" OnClick="btnInsertUser_Click" />
+            
+            </div>
         </section>
       
         
