@@ -96,6 +96,15 @@ namespace Proyecto
         protected global::System.Web.UI.WebControls.Button btnDeleteSubject;
 
         /// <summary>
+        /// btFilterBySubjects control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btFilterBySubjects;
+
+        /// <summary>
         /// lbStudents control.
         /// </summary>
         /// <remarks>
@@ -141,6 +150,15 @@ namespace Proyecto
         protected global::System.Web.UI.WebControls.Button btnDeleteStudent;
 
         /// <summary>
+        /// btStudentAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btStudentAdd;
+
+        /// <summary>
         /// lbProfessors control.
         /// </summary>
         /// <remarks>
@@ -184,6 +202,15 @@ namespace Proyecto
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDeleteProfessor;
+
+        /// <summary>
+        /// btProfAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btProfAdd;
 
         /// <summary>
         /// txtNewSubjectName control.
