@@ -32,7 +32,7 @@ namespace Proyecto
             string inputPassword = tbPassword.Text;
             string[] receivedData = new string[2];
 
-            serverLogic serverLogic = new serverLogic();
+            ServerLogic serverLogic = new ServerLogic();
 
             if (serverLogic.login(inputUsername, inputPassword, pathDB, receivedData))
             {

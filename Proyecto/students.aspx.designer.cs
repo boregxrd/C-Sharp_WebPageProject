@@ -57,7 +57,7 @@ namespace Proyecto
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label name;
+        protected global::System.Web.UI.WebControls.TextBox name;
 
         /// <summary>
         /// surname control.
@@ -66,7 +66,7 @@ namespace Proyecto
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label surname;
+        protected global::System.Web.UI.WebControls.TextBox surname;
 
         /// <summary>
         /// dateOfBirth control.
@@ -75,7 +75,7 @@ namespace Proyecto
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label dateOfBirth;
+        protected global::System.Web.UI.WebControls.TextBox dateOfBirth;
 
         /// <summary>
         /// nationality control.
@@ -84,7 +84,7 @@ namespace Proyecto
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label nationality;
+        protected global::System.Web.UI.WebControls.TextBox nationality;
 
         /// <summary>
         /// id control.
@@ -93,7 +93,16 @@ namespace Proyecto
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label id;
+        protected global::System.Web.UI.WebControls.TextBox id;
+
+        /// <summary>
+        /// address control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox address;
 
         /// <summary>
         /// btEdit control.
@@ -103,6 +112,24 @@ namespace Proyecto
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btEdit;
+
+        /// <summary>
+        /// btnEditUserConfirmed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditUserConfirmed;
+
+        /// <summary>
+        /// editMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label editMessage;
 
         /// <summary>
         /// Label10 control.
@@ -123,6 +150,15 @@ namespace Proyecto
         protected global::System.Web.UI.WebControls.Label career;
 
         /// <summary>
+        /// Label11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label11;
+
+        /// <summary>
         /// semester control.
         /// </summary>
         /// <remarks>
@@ -130,6 +166,15 @@ namespace Proyecto
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label semester;
+
+        /// <summary>
+        /// Label12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label12;
 
         /// <summary>
         /// credits control.

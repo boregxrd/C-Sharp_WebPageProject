@@ -34,24 +34,32 @@
             <div>
                 <asp:Label ID="Label1" runat="server" Text="Student's Space"></asp:Label>
             </div>
-            <p>
+            <div>
                 <asp:Label ID="Label2" runat="server" Text="Personal Information"></asp:Label>
-            </p>
-            <asp:Image src="img/editUser.png" alt="Edit user icon" runat="server" Height="133px" Width="155px" />
-            <asp:Label ID="name" runat="server" Text="Name"></asp:Label>
-            <asp:Label ID="surname" runat="server" Text="Surname"></asp:Label>
-            <asp:Label ID="dateOfBirth" runat="server" Text="DOB"></asp:Label>
-            <asp:Label ID="nationality" runat="server" Text="Nationality"></asp:Label>
-            <asp:Label ID="id" runat="server" Text="ID"></asp:Label>
-            <p>
+            </div>
+            <div>
+                <asp:Image src="img/editUser.png" alt="Edit user icon" runat="server" Height="133px" Width="155px" />
+                <asp:TextBox ID="name" runat="server" Text="Name"></asp:TextBox>
+                <asp:TextBox ID="surname" runat="server" Text="Surname"></asp:TextBox>
+                <asp:TextBox ID="dateOfBirth" runat="server" Text="DOB"></asp:TextBox>
+                <asp:TextBox ID="nationality" runat="server" Text="Nationality"></asp:TextBox>
+                <asp:TextBox ID="id" runat="server" Text="ID"></asp:TextBox>   
+                <asp:TextBox ID="address" runat="server" Text="Address"></asp:TextBox>   
+            </div>
+            <div></div>
                 <asp:Button ID="btEdit" runat="server" Text="Edit" OnClick="btEdit_Click" />
-            </p>
+                <asp:Button ID="btnEditUserConfirmed" runat="server" Text="Confirm" OnClick="btnEditUserConfirmed_Click" Style="display: none;" />
+                <asp:Label ID="editMessage" runat="server"></asp:Label>
+            <p>
             <asp:Label ID="Label10" runat="server" Text="Course Information"></asp:Label>
+            </p>
             <p>
                 <asp:Label ID="career" runat="server" Text="Career"></asp:Label>
-            </p>
+                </p>
             <p>
+                <asp:Label ID="Label11" runat="server" Text="Semesters: "></asp:Label>
                 <asp:Label ID="semester" runat="server" Text="Semester"></asp:Label>
+                <asp:Label ID="Label12" runat="server" Text="Total credits:"></asp:Label>
                 <asp:Label ID="credits" runat="server" Text="Credits"></asp:Label>
             </p>
             <asp:ListBox ID="lbSubjectsProfessors" runat="server" style="margin-left: 0px" Width="422px"></asp:ListBox>

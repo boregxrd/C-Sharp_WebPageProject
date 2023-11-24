@@ -115,7 +115,7 @@
     <Compile Include="admin.aspx.designer.cs">
       <DependentUpon>admin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="serverLogic.cs" />
+    <Compile Include="ServerLogic.cs" />
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -138,6 +138,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="User.cs" />
     <Compile Include="students.aspx.cs">
       <DependentUpon>students.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
